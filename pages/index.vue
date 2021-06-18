@@ -35,7 +35,7 @@ export default {
     async login () {
       this.loginError = false
       try {
-        const loginReq = await axios.post('/api/auth', {
+        const loginReq = await this.$axios.post('/api/auth', {
           username : this.form.username,
           password : this.form.password
         })
@@ -50,7 +50,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .centered {
   text-align: center;
 }

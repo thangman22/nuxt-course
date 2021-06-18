@@ -1,7 +1,7 @@
 <template>
   <el-row>
     <el-col :span="6" :offset="9">
-      <h1> Edit new member</h1>
+      <h1 class="header"> Edit new member</h1>
       <MemberForm :formData="form"></MemberForm>
     </el-col>
   </el-row>
@@ -22,3 +22,9 @@ export default {
   }
 }
 </script>
+<style scoped>
+.header {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+</style>

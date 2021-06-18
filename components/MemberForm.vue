@@ -1,6 +1,6 @@
 
 <template>
-  <el-form label-width="100px" :model="formData" :label-position="'left'">
+  <el-form label-width="100px" :model="formData" :label-position="'left'" @submit.native.prevent="formSubmit">
     <el-form-item label="Username" prop="username">
       <el-input placeholder="Username" v-model="formData.username"></el-input>
     </el-form-item>
@@ -17,7 +17,7 @@
         show-password
       ></el-input>
     </el-form-item>
-    <el-button type="success">Save</el-button>
+    <el-button type="success" native-type="submit">Save</el-button>
   </el-form>
 </template>
 
@@ -25,6 +25,9 @@
 export default {
   name: "MemberForm",
   props: {
+    error: {
+      type: Boolean
+    },
     formData: {
       type: Object,
       default: () => {
@@ -36,6 +39,11 @@ export default {
         };
       },
     },
+  },
+  methods: {
+    formSubmit () {
+      this.$emit('submit-form', this.formData)
+    }
   },
   mounted() {
     console.log(this.formData);

@@ -24,7 +24,7 @@ app.post('/api/auth', async (req, res) => {
 
 });
 app.use(cookieParser());
-// app.use(jwt({ secret: jwtSecret, algorithms: ['HS256'], getToken: req => req.cookies.token }));
+app.use(jwt({ secret: jwtSecret, algorithms: ['HS256'], getToken: req => req.cookies.token }));
 
 app.get('/api/users/', async (req, res) => {
   const apiRequest = await axios.get('https://living-mobile-demo-default-rtdb.asia-southeast1.firebasedatabase.app/users_list.json')
@@ -33,6 +33,7 @@ app.get('/api/users/', async (req, res) => {
 
   for(const index in apiRequest.data) {
     apiRequest.data[index]._id = index
+    delete apiRequest.data[index].pwd
     returnData.push(apiRequest.data[index])
   }
 
@@ -49,6 +50,16 @@ app.post('/api/users', async (req, res) => {
 
     const apiRequest = await axios.put('https://living-mobile-demo-default-rtdb.asia-southeast1.firebasedatabase.app/users_list/'+ req.body.username + '.json', user)
     res.json({ status: "success", data: apiRequest.data });
+});
+
+app.put('/api/users', async (req, res) => {
+  const user = {
+    username: req.body.username,
+    name: req.body.name,
+  }
+
+  const apiRequest = await axios.put('https://living-mobile-demo-default-rtdb.asia-southeast1.firebasedatabase.app/users_list/'+ req.body.username + '.json', user)
+  res.json({ status: "success", data: apiRequest.data });
 });
 
 app.get('/api/users/:id', async (req, res) => {
