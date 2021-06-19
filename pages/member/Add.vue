@@ -10,7 +10,6 @@
 <script>
 export default {
   name: 'Add',
-
   methods: {
     async saveMember (data) {
       console.log(data)
