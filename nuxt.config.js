@@ -21,7 +21,9 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    // TODO: Add Element UI
     '~/plugins/element-ui.js',
+    // TODO: Add Element UI Datataaable with no SSR
     { src: '~/plugins/data-table.js', ssr: false }
   ],
 
@@ -34,6 +36,7 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    // TODO : Install proxy and Axios
     '@nuxtjs/proxy',
     '@nuxtjs/axios'
   ],
@@ -42,6 +45,7 @@ export default {
   build: {
   },
   proxy: {
+    // TODO: Proxy API to /API
     '/api': 'http://localhost:3001',
   }
 }

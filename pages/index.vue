@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   data () {
     return {
@@ -46,6 +45,7 @@ export default {
           username : this.form.username,
           password : this.form.password
         })
+        // TODO : Save token to localstorage for detect login
         localStorage['token'] = loginReq.data.token
         this.$router.push({
           name: 'member'

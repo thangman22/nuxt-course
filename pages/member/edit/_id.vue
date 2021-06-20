@@ -2,6 +2,7 @@
   <el-row>
     <el-col :span="6" :offset="9">
       <h1 class="header"> Edit new member</h1>
+      <!-- TODO : Set event listener for save  -->
       <MemberForm :formData="form" mode="edit" @submit-form="saveMember" :error="memberEditingError"></MemberForm>
     </el-col>
   </el-row>

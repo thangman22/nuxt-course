@@ -9,6 +9,7 @@
       >
     </el-row>
     <no-ssr>
+      <!-- TODO : Add no ssr for not render in Server  -->
       <data-tables :data="users" :total="10">
         <div slot="empty" style="color: red">Users is empty</div>
         <el-table-column prop="username" label="Username" width="200" sortable>
@@ -41,6 +42,7 @@ export default {
     }
   },
   async asyncData({ $axios }) {
+    // TODO : Load user data when page loaded
     const requestUser = await $axios.get("/api/users");
     return { users: requestUser.data.data };
   },

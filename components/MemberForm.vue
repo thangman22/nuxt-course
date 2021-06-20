@@ -58,6 +58,7 @@ export default {
   data() {
     return {
       rules: {
+        // TODO : Complete form rule
         name: [
           {
             required: true,
@@ -102,6 +103,7 @@ export default {
   },
   methods: {
     formSubmit() {
+      // TODO : Emit Event when form complete
       this.$refs['member-form'].validate((valid) => {
         if(valid) {
           this.$emit("submit-form", this.formData);
@@ -111,9 +113,6 @@ export default {
       })
 
     },
-  },
-  mounted() {
-    console.log(this.formData);
   },
 };
 </script>
