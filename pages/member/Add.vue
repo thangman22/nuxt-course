@@ -12,28 +12,10 @@
 export default {
   name: 'Add',
   methods: {
-    async saveMember (data) {
-      this.memberAddingError = false
-      try {
-        await this.$axios.post('/api/users', data)
-        this.$router.push({
-          name: 'member'
-        })
-      } catch (e) {
-        this.memberAddingError = true
-      }
-    }
+
   },
   data () {
-    return {
-      memberAddingError: false,
-      form: {
-        username: '',
-        password: '',
-        name: '',
-        email: ''
-      }
-    }
+    return {}
   }
 }
 </script>

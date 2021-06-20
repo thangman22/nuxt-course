@@ -23,37 +23,11 @@
 export default {
   data () {
     return {
-      form: {
-        username: '',
-        password: '',
-      },
-      loginError: false
     }
   },
   mounted () {
-    if(localStorage['token'] !== '') {
-        this.$router.push({
-          name: 'member'
-        })
-    }
   },
   methods: {
-    async login () {
-      this.loginError = false
-      try {
-        const loginReq = await this.$axios.post('/api/auth', {
-          username : this.form.username,
-          password : this.form.password
-        })
-        // TODO : Save token to localstorage for detect login
-        localStorage['token'] = loginReq.data.token
-        this.$router.push({
-          name: 'member'
-        })
-      } catch (e) {
-        this.loginError = true
-      }
-    }
   }
 }
 </script>

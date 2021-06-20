@@ -12,27 +12,16 @@
 export default {
   data () {
     return {
-      memberEditingError: false,
-      form: {}
     }
   },
   name: 'Edit',
   async asyncData ({ $axios, params }) {
-    const requestUser = await $axios.get('/api/users/' + params.id)
-    return { user: requestUser.data.data }
+
   },
   mounted () {
-    this.form = this.user
+
   },
   methods: {
-    async saveMember (data) {
-      this.memberEditingError = false
-      try {
-        await this.$axios.put('/api/users', data)
-      } catch (e) {
-        this.memberEditingError = true
-      }
-    }
   }
 }
 </script>

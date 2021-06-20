@@ -32,19 +32,8 @@
 <script>
 export default {
   methods: {
-    editUser (data) {
-      this.$router.push({
-        name: 'member-edit-id',
-        params: {
-          id: data.username
-        }
-      })
-    }
   },
   async asyncData({ $axios }) {
-    // TODO : Load user data when page loaded
-    const requestUser = await $axios.get("/api/users");
-    return { users: requestUser.data.data };
   },
 };
 </script>
