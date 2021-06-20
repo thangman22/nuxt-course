@@ -12,10 +12,12 @@ export default {
   name: 'Add',
   methods: {
     async saveMember (data) {
-      console.log(data)
       this.memberAddingError = false
       try {
-        const loginReq = await this.$axios.post('/api/users', data)
+        await this.$axios.post('/api/users', data)
+        this.$router.push({
+          name: 'member'
+        })
       } catch (e) {
         this.memberAddingError = true
       }

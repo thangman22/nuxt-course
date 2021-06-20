@@ -3,7 +3,7 @@
     <el-row class="header">
       <el-col :span="20"><h1>Member</h1></el-col>
       <el-col :span="4"
-        ><el-button type="success" @click="$router.push({ name: 'member-Add' })"
+        ><el-button type="success" @click="$router.push({ name: 'member-add' })"
           >Add</el-button
         ></el-col
       >

@@ -31,6 +31,13 @@ export default {
       loginError: false
     }
   },
+  mounted () {
+    if(localStorage['token'] !== '') {
+        this.$router.push({
+          name: 'member'
+        })
+    }
+  },
   methods: {
     async login () {
       this.loginError = false

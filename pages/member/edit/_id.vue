@@ -2,7 +2,7 @@
   <el-row>
     <el-col :span="6" :offset="9">
       <h1 class="header"> Edit new member</h1>
-      <MemberForm :formData="form" mode="edit"></MemberForm>
+      <MemberForm :formData="form" mode="edit" @submit-form="saveMember" :error="memberEditingError"></MemberForm>
     </el-col>
   </el-row>
 </template>
@@ -11,6 +11,7 @@
 export default {
   data () {
     return {
+      memberEditingError: false,
       form: {}
     }
   },
@@ -21,6 +22,16 @@ export default {
   },
   mounted () {
     this.form = this.user
+  },
+  methods: {
+    async saveMember (data) {
+      this.memberEditingError = false
+      try {
+        await this.$axios.put('/api/users', data)
+      } catch (e) {
+        this.memberEditingError = true
+      }
+    }
   }
 }
 </script>
