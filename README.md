@@ -2,19 +2,19 @@
 
 ## Setup
 
-- [] run `yarn` in `/server` folder
-- [] run `yarn` in main folder
+- run `yarn` in `/server` folder
+- run `yarn` in main folder
 ## Todo
 
-- [] Learn Nuxt.js
-- [] Learn Element
+- Learn Nuxt.js
+- Learn Element
 ### Login page
-- [] Finish login page
+- Finish login page
 ### List page
- - [] Setup table and pagination
+ - Setup table and pagination
 ### Add page
-- [] Split form to component
-- [] Add form validation
-- [] Save datato database
+- Split form to component
+- Add form validation
+- Save datato database
 ### Edit page
-- [] Finish Edit page
+- Finish Edit page
