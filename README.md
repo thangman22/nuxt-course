@@ -6,6 +6,8 @@
 - [] run `yarn` in main folder
 ## Todo
 
+- [] Learn Nuxt.js
+- [] Learn Element
 ### Login page
 - [] Finish login page
 ### List page
