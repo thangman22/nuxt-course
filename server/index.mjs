@@ -29,15 +29,19 @@ app.use(cookieParser());
 app.use(jwt({ secret: jwtSecret, algorithms: ['HS256'], getToken: req => req.cookies.token }));
 
 app.get('/api/users/', async (req, res) => {
+  let offest = 0
+  let max = 20
   const apiRequest = await axios.get('https://living-mobile-demo-default-rtdb.asia-southeast1.firebasedatabase.app/users_list.json')
 
-  const returnData = []
+  let returnData = []
 
   for(const index in apiRequest.data) {
     apiRequest.data[index]._id = index
     delete apiRequest.data[index].pwd
     returnData.push(apiRequest.data[index])
   }
+
+  returnData = returnData.splice(offest, max)
 
   res.json({ status: "success", data: returnData });
 });
@@ -56,7 +60,7 @@ app.post('/api/users', async (req, res) => {
 
 app.put('/api/users', async (req, res) => {
   const user = {
-    username: req.body.username,
+    email: req.body.email,
     name: req.body.name,
   }
 
