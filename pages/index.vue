@@ -1,6 +1,6 @@
 <template>
   <el-row>
-    <el-col :span="6" :offset="9">
+    <!-- <el-col :span="6" :offset="9">
       <h1 class="centered header">Login</h1>
         <el-alert
           title="Login Error"
@@ -15,7 +15,7 @@
         </el-form-item>
         <div class="centered"><el-button native-type="submit" type="success">Login</el-button></div>
       </el-form>
-    </el-col>
+    </el-col> -->
   </el-row>
 </template>
 

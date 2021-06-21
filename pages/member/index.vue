@@ -1,6 +1,6 @@
 <template>
   <el-col :span="16" :offset="4">
-    <el-row class="header">
+    <!-- <el-row class="header">
       <el-col :span="20"><h1>Member</h1></el-col>
       <el-col :span="4"
         ><el-button type="success" @click="$router.push({ name: 'member-add' })"
@@ -8,9 +8,9 @@
         ></el-col
       >
     </el-row>
-    <no-ssr>
+    <no-ssr> -->
       <!-- TODO : Add no ssr for not render in Server  -->
-      <data-tables :data="users" :total="10">
+      <!-- <data-tables :data="users" :total="10">
         <div slot="empty" style="color: red">Users is empty</div>
         <el-table-column prop="username" label="Username" width="200" sortable>
         </el-table-column>
@@ -25,7 +25,7 @@
           </template>
         </el-table-column>
       </data-tables>
-    </no-ssr>
+    </no-ssr> -->
   </el-col>
 </template>
 

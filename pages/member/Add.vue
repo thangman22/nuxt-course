@@ -1,9 +1,9 @@
 <template>
   <el-row>
-    <el-col :span="6" :offset="9">
-      <h1 class="header">Add new member</h1>
+    <!-- <el-col :span="6" :offset="9">
+      <h1 class="header">Add new member</h1> -->
       <!-- TODO : Set event listener for save  -->
-        <el-form
+        <!-- <el-form
         label-width="100px"
         :model="formData"
         :label-position="'left'"
@@ -33,7 +33,7 @@
         </el-form-item>
         <el-button type="success" native-type="submit">Save</el-button>
       </el-form>
-    </el-col>
+    </el-col> -->
   </el-row>
 </template>
 
