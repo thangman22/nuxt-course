@@ -1,16 +1,16 @@
 <template>
-  <el-row>
-    <el-col :span="6" :offset="9">
+  <el-container>
+    <el-main class="custom-container">
       <h1 class="header">Edit new member</h1>
       <!-- TODO : Set event listener for save  -->
       <MemberForm
         :formData="form"
         mode="edit"
-        @submit-form="saveMember"
+        @form-submit="saveMember"
         :error="memberEditingError"
       ></MemberForm>
-    </el-col>
-  </el-row>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
@@ -33,12 +33,21 @@ export default {
   mounted() {},
   methods: {
     async saveMember(formData) {
-      return await $axios
-        .put(`api/users/${params.id}`, formData)
+      return await this.$axios
+        .put(`api/users/${this.$route.params.id}`, formData)
         .then((result) => {
-          $router.push({ name: "member" })
+          this.$message({
+            message: "Updated user.",
+            type: "success",
+          });
+          this.$router.push({ name: "member" });
         })
-        .catch((err) => {});
+        .catch((err) => {
+          this.$message({
+            message: "Can not update user.",
+            type: "error",
+          });
+        });
     },
   },
 };
@@ -47,5 +56,10 @@ export default {
 .header {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.custom-container {
+  max-width: 80vh;
+  margin: auto;
 }
 </style>

@@ -11,7 +11,8 @@ const jwtSecret = 'living1234';
 app.use(cors());
 app.use(express.json())
 
-const domain_firebase = "https://workshopnuxtjs-default-rtdb.asia-southeast1.firebasedatabase.app/"
+// const domain_firebase = "https://workshopnuxtjs-default-rtdb.asia-southeast1.firebasedatabase.app/"
+const domain_firebase = "https://living-mobile-demo-default-rtdb.asia-southeast1.firebasedatabase.app/"
 
 app.post('/api/auth', async (req, res) => {
   const apiRequest = await axios.get(`${domain_firebase}users_list/` + req.body.username + '.json')
@@ -45,27 +46,28 @@ app.get('/api/users/', async (req, res) => {
   let max = page_size;
   const apiRequest = await axios.get(`${domain_firebase}users_list.json`)
 
-  let returnData = []
+  const allUsers = []
 
   for (const index in apiRequest.data) {
     apiRequest.data[index]._id = index
     delete apiRequest.data[index].pwd
-    returnData.push(apiRequest.data[index])
+    allUsers.push(apiRequest.data[index])
   }
 
   const next = url;
   const previous = url;
 
-  const results = returnData.splice(offset, max);
+  const size = allUsers.length;
+  const results = allUsers.splice(offset, max);
 
-  returnData = {
-    count: returnData.length,
-    next: next,
-    previous: previous,
-    results: results,
-  }
-
-  res.json({ status: "success", data: returnData });
+  res.json(
+    {
+      count: size,
+      next: next,
+      previous: previous,
+      results: results,
+    }
+  );
 });
 
 app.post('/api/users', async (req, res) => {
@@ -80,13 +82,19 @@ app.post('/api/users', async (req, res) => {
   res.json({ status: "success", data: apiRequest.data });
 });
 
-app.put('/api/users', async (req, res) => {
+app.put('/api/users/:username', async (req, res) => {
+  console.log(req.body, req.params, req.query);
   const user = {
     email: req.body.email,
     name: req.body.name,
   }
 
-  const apiRequest = await axios.patch(`${domain_firebase}users_list/` + req.body.username + '.json', user)
+  const apiRequest = await axios.patch(`${domain_firebase}users_list/` + req.params.username + '.json', user)
+  res.json({ status: "success", data: apiRequest.data });
+});
+
+app.delete('/api/users/:username', async (req, res) => {
+  const apiRequest = await axios.delete(`${domain_firebase}users_list/` + req.params.username + '.json')
   res.json({ status: "success", data: apiRequest.data });
 });
 
