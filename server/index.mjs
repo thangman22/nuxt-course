@@ -11,51 +11,73 @@ const jwtSecret = 'living1234';
 app.use(cors());
 app.use(express.json())
 
-app.post('/api/auth', async (req, res) => {
-    const apiRequest = await axios.get('https://living-mobile-demo-default-rtdb.asia-southeast1.firebasedatabase.app/users_list/' + req.body.username + '.json')
+const domain_firebase = "https://workshopnuxtjs-default-rtdb.asia-southeast1.firebasedatabase.app/"
 
-    if(apiRequest.data.pwd === crypto.pbkdf2Sync(req.body.password.toString(), jwtSecret,  1000, 64, `sha512`).toString(`hex`)) {
-      // TODO: Create JWT and set to cookie
-      const token = jsonwebtoken.sign({ user: req.body.username }, jwtSecret);
-      res.cookie('token', token, { httpOnly: true, secure: true});
-      res.json({ token });
-    } else {
-      res.status(400).json({ status: 'Auth Error' });
-    }
+app.post('/api/auth', async (req, res) => {
+  const apiRequest = await axios.get(`${domain_firebase}users_list/` + req.body.username + '.json')
+
+  if (apiRequest.data.pwd === crypto.pbkdf2Sync(req.body.password.toString(), jwtSecret, 1000, 64, `sha512`).toString(`hex`)) {
+    // TODO: Create JWT and set to cookie
+    const token = jsonwebtoken.sign({ user: req.body.username }, jwtSecret);
+
+    res.cookie('token', token, { httpOnly: true, secure: true });
+
+    res.json({ token });
+  } else {
+    res.status(400).json({ status: 'Auth Error' });
+  }
 
 });
+
 app.use(cookieParser());
+
 // TODO: Check JWT with every request
+
 app.use(jwt({ secret: jwtSecret, algorithms: ['HS256'], getToken: req => req.cookies.token }));
 
 app.get('/api/users/', async (req, res) => {
-  let offest = 0
-  let max = 20
-  const apiRequest = await axios.get('https://living-mobile-demo-default-rtdb.asia-southeast1.firebasedatabase.app/users_list.json')
+  const url = req.protocol + '://' + req.get('host') + req.path;
+  console.log(url);
+
+  const { page = 1, page_size = 20 } = req.query
+
+  let offset = (page - 1) * page_size;
+  let max = page_size;
+  const apiRequest = await axios.get(`${domain_firebase}users_list.json`)
 
   let returnData = []
 
-  for(const index in apiRequest.data) {
+  for (const index in apiRequest.data) {
     apiRequest.data[index]._id = index
     delete apiRequest.data[index].pwd
     returnData.push(apiRequest.data[index])
   }
 
-  returnData = returnData.splice(offest, max)
+  const next = url;
+  const previous = url;
+
+  const results = returnData.splice(offset, max);
+
+  returnData = {
+    count: returnData.length,
+    next: next,
+    previous: previous,
+    results: results,
+  }
 
   res.json({ status: "success", data: returnData });
 });
 
 app.post('/api/users', async (req, res) => {
-    const user = {
-      username: req.body.username,
-      name: req.body.name,
-      email: req.body.email,
-      pwd: crypto.pbkdf2Sync(req.body.password.toString(), jwtSecret,  1000, 64, `sha512`).toString(`hex`)
-    }
+  const user = {
+    username: req.body.username,
+    name: req.body.name,
+    email: req.body.email,
+    pwd: crypto.pbkdf2Sync(req.body.password.toString(), jwtSecret, 1000, 64, `sha512`).toString(`hex`)
+  }
 
-    const apiRequest = await axios.put('https://living-mobile-demo-default-rtdb.asia-southeast1.firebasedatabase.app/users_list/'+ req.body.username + '.json', user)
-    res.json({ status: "success", data: apiRequest.data });
+  const apiRequest = await axios.put(`${domain_firebase}users_list/` + req.body.username + '.json', user)
+  res.json({ status: "success", data: apiRequest.data });
 });
 
 app.put('/api/users', async (req, res) => {
@@ -64,12 +86,12 @@ app.put('/api/users', async (req, res) => {
     name: req.body.name,
   }
 
-  const apiRequest = await axios.put('https://living-mobile-demo-default-rtdb.asia-southeast1.firebasedatabase.app/users_list/'+ req.body.username + '.json', user)
+  const apiRequest = await axios.patch(`${domain_firebase}users_list/` + req.body.username + '.json', user)
   res.json({ status: "success", data: apiRequest.data });
 });
 
 app.get('/api/users/:id', async (req, res) => {
-  const apiRequest = await axios.get('https://living-mobile-demo-default-rtdb.asia-southeast1.firebasedatabase.app/users_list/' + req.params.id + '.json')
+  const apiRequest = await axios.get(`${domain_firebase}users_list/` + req.params.id + '.json')
   res.json({ status: "success", data: apiRequest.data });
 });
 
