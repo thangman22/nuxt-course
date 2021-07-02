@@ -61,6 +61,7 @@ app.post('/api/users', async (req, res) => {
 });
 
 app.put('/api/users', async (req, res) => {
+  
   const user = {
     email: req.body.email,
     name: req.body.name,
@@ -72,6 +73,11 @@ app.put('/api/users', async (req, res) => {
 
 app.get('/api/users/:id', async (req, res) => {
   const apiRequest = await axios.get('https://living-mobile-demo-default-rtdb.asia-southeast1.firebasedatabase.app/users_list/' + req.params.id + '.json')
+  res.json({ status: "success", data: apiRequest.data });
+});
+
+app.delete('/api/users/:id', async (req, res) => {
+  const apiRequest = await axios.delete('https://living-mobile-demo-default-rtdb.asia-southeast1.firebasedatabase.app/users_list/' + req.params.id + '.json')
   res.json({ status: "success", data: apiRequest.data });
 });
 

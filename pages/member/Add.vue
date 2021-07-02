@@ -12,14 +12,14 @@
 export default {
   name: 'Add',
   methods: {
-    formSubmit(formData){
-      console.log(formData)
-      this.$axios.post('/api/users/', {
+    async formSubmit(formData){
+      await this.$axios.post('/api/users/', {
         username: formData.username,
         name: formData.name,
         email: formData.email,
         password: formData.password
       })
+      this.$router.go(-1)
     }
   },
   data () {

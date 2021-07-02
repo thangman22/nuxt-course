@@ -69,7 +69,19 @@ export default {
           }
         ],
         password: [
-          { required: true, message: 'Please input password', trigger: 'blur' }
+          { required: true, message: 'Please input password', trigger: 'blur' },
+          {
+              trigger: 'blur',
+              validator: (rule, value, callback) => {
+              const re = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{15,}$/;
+
+              if(!re.test(String(value))) {
+                callback(new Error('Password is not strong'))
+              } else {
+                callback()
+              }
+            }
+          }
         ],
         username: [
           { required: true, message: 'Please input username', trigger: 'blur' },

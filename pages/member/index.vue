@@ -8,8 +8,8 @@
       >
     </el-row>
     <no-ssr>
-      <!-- <data-tables :data="users" :total="10" @sort-change="sort" @current-page="currentPage" @size-change="sizeChange"> -->
-      <data-tables :data="users" :total="sizePage" @size-change="sizeChange" @sort-change="sort">
+      <data-tables :data="users" @sort-change="sort" @size-change="sizeChange">
+      <!-- <data-tables :data="users" :total="sizePage" @size-change="sizeChange" @sort-change="sort"> -->
         <div slot="empty" style="color: red">Users is empty</div>
         <el-table-column prop="username" label="Username" width="200" sortable>
         </el-table-column>
@@ -20,7 +20,7 @@
         <el-table-column fixed="right">
           <template slot-scope="scope">
             <el-button type="text" size="small" @click="editUser(scope.row)">Edit</el-button>
-            <el-button type="text" size="small">Delete</el-button>
+            <el-button type="text" size="small" @click="deleteUser(scope.row)">Delete</el-button>
           </template>
         </el-table-column>
       </data-tables>
@@ -29,37 +29,34 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   methods: {
-    sort(){
-      console.log('size')
-    },
-    currentPage(){
-      console.log('cuurentPage')
-    },
+    sort(){},
     async sizeChange(size){
-      const userRequest = await axios.get('/api/users' , {params:{size: size}})
-      console.log(userRequest)
+      const userRequest = await this.$axios.get('/api/users' , {params:{size: size}})
       this.users = userRequest.data.data
-      // return { users: userRequest.data.data}
+      this.sizePage = userRequest.data.size
     },
     editUser(row){
-      console.log(row)
       this.$router.push({
         name: 'member-edit-id',
         params:{
           id: row.username
         }
       })
+    },
+    async deleteUser(row){
+      await this.$axios.delete('/api/users/' + row.username)
+      const userRequest = await this.$axios.get('/api/users')
+      this.users = userRequest.data.data
+      this.sizePage = userRequest.data.data.size
     }
   },
   async asyncData({ $axios }) {
     const userRequest = await $axios.get('/api/users')
-    console.log(userRequest.data)
     return { 
       users: userRequest.data.data,
-      sizePage: userRequest.data.size,
+      sizePage: userRequest.data.data.size,
     }
   },
 };

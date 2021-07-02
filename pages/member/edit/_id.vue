@@ -3,7 +3,7 @@
     <el-col :span="6" :offset="9">
       <h1 class="header"> Edit new member</h1>
       <!-- TODO : Set event listener for save  -->
-      <MemberForm :formData="form" mode="edit" @form-submit="saveMember" :error="memberEditingError"></MemberForm>
+      <MemberForm :formData="form" mode="edit" @form-submit="saveMember"></MemberForm>
     </el-col>
   </el-row>
 </template>
@@ -25,8 +25,15 @@ export default {
     console.log(this.form)
   },
   methods: {
-    saveMember: {
-      
+    async saveMember() {
+      await this.$axios.put('/api/users/', {
+        username: this.form.username,
+        name: this.form.name,
+        email: this.form.email,
+      })
+      this.$router.push({
+        name: 'member',
+      })
     }
   }
 }
