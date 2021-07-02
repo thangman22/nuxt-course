@@ -69,6 +69,60 @@ export default {
         ],
         password: [
           { required: true, message: "Please input password", trigger: "blur" },
+          {
+            trigger: "blur",
+            min: 15,
+            message: "Length should be 15",
+            trigger: "blur",
+          },
+          {
+            trigger: "blur",
+            validator: (rule, value, callback) => {
+              const re =
+                /(?=.*[a-z])/;
+              if (!re.test(value)) {
+                callback(new Error("The password must contain at least 1 lowercase alphabetical character"))
+              } else {
+                callback()
+              }
+            },
+          },
+          {
+            trigger: "blur",
+            validator: (rule, value, callback) => {
+              const re =
+                /(?=.*[A-Z])/;
+              if (!re.test(value)) {
+                callback(new Error("The password must contain at least 1 uppercase alphabetical character"))
+              } else {
+                callback()
+              }
+            },
+          },
+          {
+            trigger: "blur",
+            validator: (rule, value, callback) => {
+              const re =
+                /(?=.*[0-9])/;
+              if (!re.test(value)) {
+                callback(new Error("The password must contain at least 1 numeric character"))
+              } else {
+                callback()
+              }
+            },
+          },
+          {
+            trigger: "blur",
+            validator: (rule, value, callback) => {
+              const re =
+                /(?=.*[!@#$%^&*])/;
+              if (!re.test(value)) {
+                callback(new Error("The password must contain at least one special character (!@#$%^&*)"))
+              } else {
+                callback()
+              }
+            },
+          },
         ],
         username: [
           { required: true, message: "Please input username", trigger: "blur" },
