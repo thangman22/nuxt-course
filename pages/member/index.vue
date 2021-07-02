@@ -9,7 +9,7 @@
     </el-row>
     <no-ssr>
       <!-- <data-tables :data="users" :total="10" @sort-change="sort" @current-page="currentPage" @size-change="sizeChange"> -->
-      <data-tables :data="users" :total="users.length" @size-change="sizeChange" @sort-change="sort">
+      <data-tables :data="users" :total="sizePage" @size-change="sizeChange" @sort-change="sort">
         <div slot="empty" style="color: red">Users is empty</div>
         <el-table-column prop="username" label="Username" width="200" sortable>
         </el-table-column>
@@ -56,10 +56,11 @@ export default {
   },
   async asyncData({ $axios }) {
     const userRequest = await $axios.get('/api/users')
-    console.log(userRequest)
-    return { users: userRequest.data.data}
-
-
+    console.log(userRequest.data)
+    return { 
+      users: userRequest.data.data,
+      sizePage: userRequest.data.size,
+    }
   },
 };
 </script>
