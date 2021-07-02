@@ -1,11 +1,11 @@
 <template>
-  <el-row>
-    <el-col :span="6" :offset="9">
+  <el-container class="custom-container">
+    <el-main>
       <h1 class="header">Add new member</h1>
       <!-- TODO : Set event listener for save  -->
       <member-form :formData="formData" @form-submit="formSubmit" />
-    </el-col>
-  </el-row>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
@@ -25,6 +25,7 @@ export default {
           password: this.formData.password,
         })
         .then((result) => {
+          console.log(result);
           this.$message({
             message: "Created user.",
             type: "success",
@@ -59,5 +60,10 @@ export default {
 .header {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.custom-container {
+  max-width: 80vh;
+  margin: auto;
 }
 </style>

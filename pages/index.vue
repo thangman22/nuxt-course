@@ -1,6 +1,6 @@
 <template>
-  <el-row>
-    <el-col :span="6" :offset="9">
+  <el-container class="custom-container">
+    <el-main>
       <h1 class="centered header">Login</h1>
       <el-alert title="Login Error" type="error" v-if="loginError"> </el-alert>
       <el-form
@@ -23,8 +23,8 @@
           <el-button native-type="submit" type="success">Login</el-button>
         </div>
       </el-form>
-    </el-col>
-  </el-row>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
@@ -64,5 +64,9 @@ export default {
 .header {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+.custom-container {
+  max-width: 80vh;
+  margin: auto;
 }
 </style>
