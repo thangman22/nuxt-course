@@ -28,9 +28,10 @@ app.use(cookieParser());
 // TODO: Check JWT with every request
 app.use(jwt({ secret: jwtSecret, algorithms: ['HS256'], getToken: req => req.cookies.token }));
 
-app.get('/api/users/', async (req, res) => {
-  let offest = 0
-  let max = 20
+
+app.get('/api/users', async (req, res) => {
+  let offest = 0 
+  let max = req.query.size || 20
   const apiRequest = await axios.get('https://living-mobile-demo-default-rtdb.asia-southeast1.firebasedatabase.app/users_list.json')
 
   let returnData = []
@@ -41,9 +42,10 @@ app.get('/api/users/', async (req, res) => {
     returnData.push(apiRequest.data[index])
   }
 
+  let count = returnData.length
   returnData = returnData.splice(offest, max)
 
-  res.json({ status: "success", data: returnData });
+  res.json({ status: "success", data: returnData, size: count });
 });
 
 app.post('/api/users', async (req, res) => {
@@ -59,17 +61,23 @@ app.post('/api/users', async (req, res) => {
 });
 
 app.put('/api/users', async (req, res) => {
+  
   const user = {
     email: req.body.email,
     name: req.body.name,
   }
 
-  const apiRequest = await axios.put('https://living-mobile-demo-default-rtdb.asia-southeast1.firebasedatabase.app/users_list/'+ req.body.username + '.json', user)
+  const apiRequest = await axios.patch('https://living-mobile-demo-default-rtdb.asia-southeast1.firebasedatabase.app/users_list/'+ req.body.username + '.json', user)
   res.json({ status: "success", data: apiRequest.data });
 });
 
 app.get('/api/users/:id', async (req, res) => {
   const apiRequest = await axios.get('https://living-mobile-demo-default-rtdb.asia-southeast1.firebasedatabase.app/users_list/' + req.params.id + '.json')
+  res.json({ status: "success", data: apiRequest.data });
+});
+
+app.delete('/api/users/:id', async (req, res) => {
+  const apiRequest = await axios.delete('https://living-mobile-demo-default-rtdb.asia-southeast1.firebasedatabase.app/users_list/' + req.params.id + '.json')
   res.json({ status: "success", data: apiRequest.data });
 });
 
