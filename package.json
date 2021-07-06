@@ -15,7 +15,7 @@
     "core-js": "^3.9.1",
     "element-ui": "^2.15.2",
     "nuxt": "^2.15.3",
-    "vue-data-tables": "^3.4.3"
+    "vue-data-tables": "^3.4.5"
   },
   "devDependencies": {}
 }
