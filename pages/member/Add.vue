@@ -1,39 +1,10 @@
 <template>
   <el-row>
-    <!-- <el-col :span="6" :offset="9">
-      <h1 class="header">Add new member</h1> -->
+    <el-col :span="6" :offset="9">
+      <h1 class="header">Add new member</h1>
       <!-- TODO : Set event listener for save  -->
-        <!-- <el-form
-        label-width="100px"
-        :model="formData"
-        :label-position="'left'"
-        @submit.native.prevent="formSubmit"
-        :rules="rules"
-        ref="member-form"
-      >
-        <el-form-item label="Username" prop="username">
-          <el-input
-            placeholder="Username"
-            v-model="formData.username"
-            :disabled="mode === 'edit'"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="Name" prop="name">
-          <el-input placeholder="Name" v-model="formData.name"></el-input>
-        </el-form-item>
-        <el-form-item label="Email" prop="email">
-          <el-input placeholder="Email" v-model="formData.email"></el-input>
-        </el-form-item>
-        <el-form-item label="Password" prop="password" v-if="mode === 'create'">
-          <el-input
-            placeholder="Password"
-            v-model="formData.password"
-            show-password
-          ></el-input>
-        </el-form-item>
-        <el-button type="success" native-type="submit">Save</el-button>
-      </el-form>
-    </el-col> -->
+        <MemberForm :formData="formData" @form-submit="formSubmit"></MemberForm>
+    </el-col>
   </el-row>
 </template>
 
@@ -41,10 +12,29 @@
 export default {
   name: 'Add',
   methods: {
-
+    formSubmit(formData) {
+      console.log('formData', formData)
+      // ไม่ต้องใส่ async await ก็ได้ เพราะไม่ได้ไปไหน
+      this.$axios.post('api/users/', {
+        username: this.formData.username,
+        name: this.formData.name,
+        email: this.formData.email,
+        password: this.formData.password
+      })
+      this.$router.push({
+        name: "member"
+      });
+    }
   },
   data () {
-    return {}
+    return {
+      formData: {
+        username: '',
+        name: '',
+        email: '',
+        password: ''
+      }
+    }
   }
 }
 </script>

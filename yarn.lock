@@ -7637,10 +7637,10 @@ vue-client-only@^2.0.0:
   resolved "https://registry.yarnpkg.com/vue-client-only/-/vue-client-only-2.1.0.tgz#1a67a47b8ecacfa86d75830173fffee3bf8a4ee3"
   integrity sha512-vKl1skEKn8EK9f8P2ZzhRnuaRHLHrlt1sbRmazlvsx6EiC3A8oWF8YCBrMJzoN+W3OnElwIGbVjsx6/xelY1AA==
 
-vue-data-tables@^3.4.3:
-  version "3.4.3"
-  resolved "https://registry.yarnpkg.com/vue-data-tables/-/vue-data-tables-3.4.3.tgz#4446dee7201dccef5f7e769a94b8aa1408419761"
-  integrity sha512-QgCWN8COJjqfkmm9COnphAxD3M+TC+2lV/a45iSMp9BLUpmzIN5Fdrn5NM4jnED0oG3lCmijP9qqObwOJo4u5A==
+vue-data-tables@^3.4.5:
+  version "3.4.5"
+  resolved "https://registry.yarnpkg.com/vue-data-tables/-/vue-data-tables-3.4.5.tgz#010d9456de411f17f4b9d99254f30139e668954c"
+  integrity sha512-RfJOd3095RxP2EgrRtOBmO+JEeUdPRsN1jKAU2FQPF+3yQIeVzko1Om8REij93arTiYjSirqWWX0LH4wIev63Q==
   dependencies:
     element-ui "^2.3.9"
     lodash "^4.17.10"
